@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muscle Maniacs | Gibraltar's 24/7 Gym</title>
+  <meta name="description" content="Gibraltar's premier 24/7 gym. State-of-the-art Rogue Fitness equipment. Open every hour of every day. Join Muscle Maniacs today." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --card: #181818;
+      --red: #e8001d;
+      --red-dark: #b50017;
+      --red-glow: rgba(232,0,29,0.25);
+      --white: #f5f5f5;
+      --grey: #888;
+      --light-grey: #ccc;
+      --border: rgba(255,255,255,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 400; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 70px;
+      background: rgba(10,10,10,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; color: var(--white); text-decoration: none; }
+    .nav-logo span { color: var(--red); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--light-grey); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--red); }
+    .nav-cta { background: var(--red); color: var(--white) !important; padding: 0.45rem 1.2rem; border-radius: 2px; font-weight: 600 !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--red-dark) !important; color: var(--white) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+
+    /* HERO */
+    #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; padding: 70px 5vw 0; }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1800&q=80') center/cover no-repeat;
+      z-index: 0;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(10,10,10,0.96) 45%, rgba(10,10,10,0.45) 100%),
+                  linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 60%),
+                  linear-gradient(160deg, rgba(232,0,29,0.1) 0%, transparent 50%);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(232,0,29,0.15); border: 1px solid var(--red); color: var(--red);
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+      padding: 0.35rem 1rem; border-radius: 2px; margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--red); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 10vw, 8.5rem); line-height: 0.95; letter-spacing: 1px; margin-bottom: 1.2rem; animation: fadeUp 0.8s 0.1s ease both; }
+    .hero-title .accent { color: var(--red); display: block; }
+    .hero-sub { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--light-grey); font-weight: 300; line-height: 1.6; max-width: 480px; margin-bottom: 2.5rem; animation: fadeUp 0.8s 0.2s ease both; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.8s 0.3s ease both; }
+    .btn-primary { background: var(--red); color: var(--white); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 1rem 2.2rem; border-radius: 2px; border: 2px solid var(--red); transition: all 0.2s; display: inline-block; }
+    .btn-primary:hover { background: transparent; color: var(--red); }
+    .btn-ghost { background: transparent; color: var(--white); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 1rem 2.2rem; border-radius: 2px; border: 2px solid rgba(255,255,255,0.25); transition: all 0.2s; display: inline-block; }
+    .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+    .hero-stats { position: relative; z-index: 1; display: flex; gap: 3rem; padding: 3rem 0 4rem; border-top: 1px solid var(--border); margin-top: 4rem; animation: fadeUp 0.8s 0.4s ease both; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--red); line-height: 1; }
+    .stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--grey); margin-top: 0.2rem; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+    /* TICKER */
+    .features-bar { background: var(--red); padding: 1rem 0; overflow: hidden; }
+    .features-ticker { display: flex; gap: 4rem; align-items: center; animation: ticker 22s linear infinite; white-space: nowrap; width: max-content; }
+    .features-ticker span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; display: flex; align-items: center; gap: 0.6rem; }
+    .features-ticker span::before { content: '●'; font-size: 0.4rem; }
+    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* SECTIONS */
+    section { padding: 6rem 5vw; }
+    .section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 0.75rem; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1; margin-bottom: 1.2rem; }
+    .section-intro { color: var(--grey); font-size: 1rem; line-height: 1.7; max-width: 520px; }
+
+    /* ABOUT */
+    #about { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .about-images { position: relative; height: 520px; }
+    .about-img { position: absolute; border-radius: 4px; overflow: hidden; }
+    .about-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .about-img-main { width: 75%; height: 80%; top: 0; left: 0; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+    .about-img-accent { width: 55%; height: 55%; bottom: 0; right: 0; border: 3px solid var(--red); box-shadow: 0 0 30px var(--red-glow); }
+    .about-badge-float { position: absolute; top: 50%; left: 55%; transform: translate(-50%,-50%); background: var(--red); border-radius: 50%; width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 0 40px var(--red-glow); }
+    .about-badge-float strong { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; line-height: 1; }
+    .about-badge-float span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; text-align: center; line-height: 1.2; }
+    .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem; }
+    .about-feature { display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem; background: var(--card); border-radius: 4px; border: 1px solid var(--border); transition: border-color 0.2s; }
+    .about-feature:hover { border-color: var(--red); }
+    .about-feature-icon { font-size: 1.4rem; line-height: 1; margin-top: 2px; }
+    .about-feature-text strong { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .about-feature-text p { font-size: 0.8rem; color: var(--grey); line-height: 1.4; }
+
+    /* GALLERY */
+    #gallery { background: var(--dark); }
+    .gallery-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(12,1fr); grid-template-rows: 240px 240px; gap: 12px; }
+    .gallery-item { overflow: hidden; border-radius: 4px; position: relative; background: var(--card); }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease, filter 0.3s ease; filter: brightness(0.85) saturate(0.9); }
+    .gallery-item:hover img { transform: scale(1.06); filter: brightness(1) saturate(1.1); }
+    .gallery-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(232,0,29,0.3) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; }
+    .gallery-item:hover::after { opacity: 1; }
+    .g1{grid-column:span 5} .g2{grid-column:span 3} .g3{grid-column:span 4} .g4{grid-column:span 4} .g5{grid-column:span 4} .g6{grid-column:span 4}
+    .gallery-follow { display: flex; align-items: center; gap: 0.75rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light-grey); text-decoration: none; transition: color 0.2s; }
+    .gallery-follow:hover { color: var(--red); }
+
+    /* PRICING */
+    #pricing { background: var(--black); }
+    .pricing-header { text-align: center; margin-bottom: 3.5rem; }
+    .pricing-header .section-intro { margin: 0 auto; text-align: center; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .pricing-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 2rem 1.8rem; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
+    .pricing-card:hover { transform: translateY(-6px); border-color: var(--red); }
+    .pricing-card.featured { border-color: var(--red); background: linear-gradient(135deg, rgba(232,0,29,0.1) 0%, var(--card) 50%); }
+    .pricing-card.featured::before { content: 'MOST POPULAR'; position: absolute; top: 16px; right: -28px; background: var(--red); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 1.5px; padding: 0.3rem 2.5rem; transform: rotate(45deg); }
+    .pricing-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red); transform: scaleX(0); transition: transform 0.3s; }
+    .pricing-card:hover::after, .pricing-card.featured::after { transform: scaleX(1); }
+    .pricing-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .pricing-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 1px; margin-bottom: 0.3rem; }
+    .pricing-desc { font-size: 0.8rem; color: var(--grey); margin-bottom: 1.5rem; line-height: 1.5; }
+    .pricing-price { display: flex; align-items: baseline; gap: 0.3rem; margin-bottom: 0.4rem; }
+    .pricing-amount { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--white); line-height: 1; }
+    .pricing-amount .currency { font-size: 1.8rem; }
+    .pricing-period { font-size: 0.8rem; color: var(--grey); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+    .pricing-joining { font-size: 0.78rem; color: var(--grey); margin-bottom: 1.5rem; }
+    .pricing-joining strong { color: var(--light-grey); }
+    .pricing-perks { list-style: none; margin-bottom: 2rem; }
+    .pricing-perks li { font-size: 0.85rem; color: var(--light-grey); padding: 0.45rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+    .pricing-perks li::before { content: '✓'; color: var(--red); font-weight: 700; font-size: 0.8rem; flex-shrink: 0; }
+    .pricing-btn { display: block; width: 100%; text-align: center; background: var(--red); color: var(--white); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 0.9rem; border-radius: 3px; border: 2px solid var(--red); transition: all 0.2s; cursor: pointer; }
+    .pricing-btn:hover { background: transparent; color: var(--red); }
+    .pricing-btn.ghost { background: transparent; color: var(--white); border-color: var(--border); }
+    .pricing-btn.ghost:hover { border-color: var(--red); color: var(--red); }
+    .pricing-note { text-align: center; margin-top: 2rem; font-size: 0.82rem; color: var(--grey); }
+    .pricing-note strong { color: var(--light-grey); }
+
+    /* REVIEW */
+    #review { background: var(--dark); }
+    .review-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .review-stars { color: #ffd700; font-size: 1.5rem; margin-bottom: 1.5rem; display: flex; justify-content: center; gap: 0.3rem; }
+    .review-quote { font-size: clamp(1rem, 2.5vw, 1.2rem); color: var(--light-grey); font-style: italic; line-height: 1.7; margin-bottom: 2rem; position: relative; padding: 0 1rem; }
+    .review-quote::before { content: '\201C'; font-family: 'Bebas Neue', sans-serif; font-size: 8rem; color: var(--red); opacity: 0.15; position: absolute; top: -2rem; left: -1rem; line-height: 1; }
+    .review-author { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+    .review-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; flex-shrink: 0; }
+    .review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; }
+    .review-source { font-size: 0.78rem; color: var(--grey); }
+    .google-badge { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.3rem; }
+
+    /* CONTACT */
+    #contact { background: var(--black); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .contact-item:last-of-type { border-bottom: none; }
+    .contact-icon { width: 44px; height: 44px; border-radius: 4px; background: rgba(232,0,29,0.1); border: 1px solid rgba(232,0,29,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .contact-item-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 0.3rem; }
+    .contact-item-value { font-size: 1rem; color: var(--light-grey); text-decoration: none; transition: color 0.2s; display: block; }
+    .contact-item-value:hover { color: var(--white); }
+    .contact-item-sub { font-size: 0.8rem; color: var(--grey); margin-top: 0.2rem; }
+    .social-links { display: flex; gap: 0.75rem; margin-top: 2rem; }
+    .social-link { width: 44px; height: 44px; background: var(--card); border: 1px solid var(--border); border-radius: 4px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.1rem; color: var(--grey); transition: all 0.2s; }
+    .social-link:hover { background: var(--red); border-color: var(--red); color: var(--white); }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--grey); }
+    .form-group input, .form-group select, .form-group textarea { background: var(--card); border: 1px solid var(--border); border-radius: 3px; padding: 0.8rem 1rem; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 0.9rem; transition: border-color 0.2s; outline: none; -webkit-appearance: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--red); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group select option { background: #222; }
+    .form-submit { background: var(--red); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 1rem 2rem; border: 2px solid var(--red); border-radius: 3px; cursor: pointer; transition: all 0.2s; margin-top: 0.5rem; }
+    .form-submit:hover { background: transparent; color: var(--red); }
+    .form-success { display: none; background: rgba(232,0,29,0.1); border: 1px solid var(--red); border-radius: 3px; padding: 1rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; letter-spacing: 1px; color: var(--red); margin-top: 1rem; }
+
+    /* MAP */
+    #map-section { padding: 0; height: 400px; position: relative; }
+    #map-section iframe { width: 100%; height: 100%; border: none; filter: grayscale(80%) invert(90%) hue-rotate(180deg); display: block; }
+    .map-overlay { position: absolute; bottom: 2rem; left: 2rem; background: var(--black); border: 1px solid var(--border); padding: 1rem 1.5rem; border-radius: 4px; font-size: 0.85rem; }
+    .map-overlay strong { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; display: block; margin-bottom: 0.2rem; }
+    .map-overlay span { color: var(--grey); }
+
+    /* FOOTER */
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 3rem 5vw 2rem; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; color: var(--white); text-decoration: none; display: block; margin-bottom: 1rem; }
+    .footer-logo span { color: var(--red); }
+    .footer-tagline { font-size: 0.85rem; color: var(--grey); line-height: 1.6; max-width: 240px; margin-bottom: 1.5rem; }
+    .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a { color: var(--grey); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--grey); flex-wrap: wrap; gap: 1rem; }
+    .hours-item { display: flex; justify-content: space-between; gap: 1.5rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+    .hours-item:last-child { border-bottom: none; }
+    .hours-day { color: var(--grey); }
+    .hours-time { color: var(--light-grey); }
+    .hours-time.always { color: var(--red); font-weight: 600; }
+
+    /* FLOAT CTA */
+    .float-cta { position: fixed; bottom: 2rem; right: 2rem; z-index: 999; background: var(--red); color: var(--white); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 0.9rem 1.6rem; border-radius: 50px; box-shadow: 0 4px 20px var(--red-glow); transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s; display: flex; align-items: center; gap: 0.5rem; }
+    .float-cta:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(232,0,29,0.4); }
+
+    /* MOBILE */
+    .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; bottom: 0; background: var(--black); z-index: 999; flex-direction: column; padding: 2rem 5vw; gap: 1.5rem; border-top: 1px solid var(--border); overflow-y: auto; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; letter-spacing: 2px; text-transform: uppercase; color: var(--light-grey); text-decoration: none; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--red); }
+
+    @media (max-width: 900px) {
+      #about { grid-template-columns: 1fr; gap: 3rem; }
+      .about-images { height: 380px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .gallery-grid { grid-template-columns: repeat(2,1fr); grid-template-rows: auto; }
+      .g1,.g2,.g3,.g4,.g5,.g6 { grid-column: span 1; height: 200px; }
+      .g1 { grid-column: span 2; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .form-row { grid-template-columns: 1fr; }
+      .about-features { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .g1,.g2,.g3,.g4,.g5,.g6 { grid-column: span 1; height: 220px; }
+      .float-cta { bottom: 1rem; right: 1rem; font-size: 0.78rem; padding: 0.75rem 1.2rem; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn-primary, .hero-actions .btn-ghost { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">MUSCLE<span>MANIACS</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#pricing">Memberships</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#pricing" class="nav-cta">Join Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#gallery" onclick="closeMobileMenu()">Gallery</a>
+  <a href="#pricing" onclick="closeMobileMenu()">Memberships</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  <a href="#pricing" onclick="closeMobileMenu()" style="color:var(--red);font-weight:700;">&#8594; Join Now</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Open 24 Hours &middot; 365 Days a Year</div>
+    <h1 class="hero-title">GIBRALTAR'S<span class="accent">ULTIMATE</span>GYM</h1>
+    <p class="hero-sub">State-of-the-art Rogue Fitness equipment, a community that pushes you further, and doors that never close. Your grind doesn't stop &mdash; neither do we.</p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">Join Today</a>
+      <a href="#about" class="btn-ghost">Explore the Gym</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Access, Every Day</div></div>
+    <div class="stat"><div class="stat-num">365</div><div class="stat-label">Days Open</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Rogue Equipment</div></div>
+    <div class="stat"><div class="stat-num">£10</div><div class="stat-label">From (Day Pass)</div></div>
+  </div>
+</section>
+
+<div class="features-bar">
+  <div class="features-ticker">
+    <span>24/7 Gym Access</span>
+    <span>Rogue Fitness Equipment</span>
+    <span>Swipe-In Entry System</span>
+    <span>CCTV Security</span>
+    <span>Friendly Staff</span>
+    <span>Heavy Free Weights</span>
+    <span>Gibraltar's Premier Gym</span>
+    <span>EU Funded Facility</span>
+    <span>24/7 Gym Access</span>
+    <span>Rogue Fitness Equipment</span>
+    <span>Swipe-In Entry System</span>
+    <span>CCTV Security</span>
+    <span>Friendly Staff</span>
+    <span>Heavy Free Weights</span>
+    <span>Gibraltar's Premier Gym</span>
+    <span>EU Funded Facility</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-images">
+    <div class="about-img about-img-main">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Muscle Maniacs gym floor with Rogue equipment" loading="lazy" />
+    </div>
+    <div class="about-img about-img-accent">
+      <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80" alt="Heavy free weights at Muscle Maniacs" loading="lazy" />
+    </div>
+    <div class="about-badge-float">
+      <strong>EU</strong>
+      <span>Funded<br>Facility</span>
+    </div>
+  </div>
+  <div class="about-text">
+    <p class="section-label">About Muscle Maniacs</p>
+    <h2 class="section-title">Built for<br>Serious<br>Lifters</h2>
+    <p class="section-intro">Located in the heart of Gibraltar's South District, Muscle Maniacs is the Rock's premier 24-hour training facility. Kitted out with premium Rogue Fitness equipment, we don't do half measures &mdash; and neither should you.</p>
+    <div class="about-features">
+      <div class="about-feature">
+        <div class="about-feature-icon">&#128273;</div>
+        <div class="about-feature-text"><strong>24/7 Swipe Access</strong><p>Train at 2am or 2pm. Your schedule, your rules.</p></div>
+      </div>
+      <div class="about-feature">
+        <div class="about-feature-icon">&#127947;</div>
+        <div class="about-feature-text"><strong>Rogue Fitness Kit</strong><p>Industry-leading equipment, always well maintained.</p></div>
+      </div>
+      <div class="about-feature">
+        <div class="about-feature-icon">&#128249;</div>
+        <div class="about-feature-text"><strong>Full CCTV</strong><p>Safe, secure, and monitored around the clock.</p></div>
+      </div>
+      <div class="about-feature">
+        <div class="about-feature-icon">&#129309;</div>
+        <div class="about-feature-text"><strong>Friendly Team</strong><p>Helpful staff to get you set up fast.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-header">
+    <div>
+      <p class="section-label">The Facility</p>
+      <h2 class="section-title">See Inside</h2>
+    </div>
+    <a href="https://www.instagram.com/musclemaniacsgym/" target="_blank" rel="noopener" class="gallery-follow">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="flex-shrink:0"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Follow @musclemaniacsgym
+    </a>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item g1"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&q=80" alt="Gym floor" loading="lazy" /></div>
+    <div class="gallery-item g2"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80" alt="Free weights" loading="lazy" /></div>
+    <div class="gallery-item g3"><img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=700&q=80" alt="Barbell" loading="lazy" /></div>
+    <div class="gallery-item g4"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=700&q=80" alt="Cardio" loading="lazy" /></div>
+    <div class="gallery-item g5"><img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=700&q=80" alt="Cables" loading="lazy" /></div>
+    <div class="gallery-item g6"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=700&q=80" alt="Dumbbells" loading="lazy" /></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="pricing-header">
+    <p class="section-label">Membership Options</p>
+    <h2 class="section-title">Simple Pricing,<br>Zero Excuses</h2>
+    <p class="section-intro">Pick the plan that fits your lifestyle. All memberships include the same premium Rogue Fitness equipment and swipe-card access.</p>
+  </div>
+  <div class="pricing-grid">
+
+    <div class="pricing-card featured">
+      <div class="pricing-icon">&#128170;</div>
+      <div class="pricing-name">Standard</div>
+      <div class="pricing-desc">Unlimited 24/7 access, 365 days a year.</div>
+      <div class="pricing-price"><div class="pricing-amount"><span class="currency">&#163;</span>50</div><div class="pricing-period">/ month</div></div>
+      <div class="pricing-joining">+ <strong>&#163;50</strong> one-off joining fee</div>
+      <ul class="pricing-perks">
+        <li>24/7 Gym Access</li>
+        <li>365 Days Per Year</li>
+        <li>Full Rogue Equipment</li>
+        <li>Swipe Card Entry</li>
+        <li>CCTV Secured Facility</li>
+      </ul>
+      <a href="#contact" class="pricing-btn">Get Started</a>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-icon">&#127749;</div>
+      <div class="pricing-name">Early Bird</div>
+      <div class="pricing-desc">Off-peak hours for the early risers. 6am&ndash;3pm only.</div>
+      <div class="pricing-price"><div class="pricing-amount"><span class="currency">&#163;</span>30</div><div class="pricing-period">/ month</div></div>
+      <div class="pricing-joining">+ <strong>&#163;50</strong> one-off joining fee</div>
+      <ul class="pricing-perks">
+        <li>Access 6:00am &ndash; 3:00pm</li>
+        <li>365 Days Per Year</li>
+        <li>Full Rogue Equipment</li>
+        <li>Swipe Card Entry</li>
+        <li>Best Value Off-Peak</li>
+      </ul>
+      <a href="#contact" class="pricing-btn ghost">Get Started</a>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-icon">&#127891;</div>
+      <div class="pricing-name">Student</div>
+      <div class="pricing-desc">Unlimited access for 3 months, one payment.</div>
+      <div class="pricing-price"><div class="pricing-amount"><span class="currency">&#163;</span>125</div><div class="pricing-period">/ 3 months</div></div>
+      <div class="pricing-joining"><strong>One-off payment &mdash; no joining fee</strong></div>
+      <ul class="pricing-perks">
+        <li>Full 24/7 Access</li>
+        <li>3-Month Fixed Term</li>
+        <li>Full Rogue Equipment</li>
+        <li>Swipe Card Entry</li>
+        <li>Valid Student ID Required</li>
+      </ul>
+      <a href="#contact" class="pricing-btn ghost">Get Started</a>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-icon">&#9889;</div>
+      <div class="pricing-name">Day Pass</div>
+      <div class="pricing-desc">Visiting Gibraltar? Don't miss a session.</div>
+      <div class="pricing-price"><div class="pricing-amount"><span class="currency">&#163;</span>10</div><div class="pricing-period">one-off</div></div>
+      <div class="pricing-joining"><strong>No commitment &mdash; no joining fee</strong></div>
+      <ul class="pricing-perks">
+        <li>Full Day Access</li>
+        <li>Perfect for Visitors</li>
+        <li>Full Rogue Equipment</li>
+        <li>Quick Setup at Reception</li>
+        <li>Available Any Day</li>
+      </ul>
+      <a href="#contact" class="pricing-btn ghost">Get a Pass</a>
+    </div>
+
+  </div>
+  <p class="pricing-note">
+    <strong>How to sign up:</strong> Visit reception Mon&ndash;Fri 13:00&ndash;16:00 to get set up with swipe access (mandatory). Message us on <a href="https://www.instagram.com/musclemaniacsgym/" target="_blank" style="color:var(--red);text-decoration:none;">Instagram</a> &mdash; we respond quickly!
+  </p>
+</section>
+
+<!-- REVIEW -->
+<section id="review">
+  <div class="review-inner">
+    <p class="section-label" style="text-align:center">What Members Say</p>
+    <div class="review-stars">
+      <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+    </div>
+    <p class="review-quote">
+      &ldquo;24/7 gym in Gibraltar &mdash; well equipped with friendly staff. The equipment is incredibly well maintained and includes some heavier weights, which is pleasant to see. I was not limited in any way by the weights. I can not stress enough how great it was to swipe in at 2am, put on some music and just get on with it. Absolutely suggest for locals as well as visitors. Was quick to respond via Instagram.&rdquo;
+    </p>
+    <div class="review-author">
+      <div class="review-avatar">JW</div>
+      <div>
+        <div class="review-name">James Weech</div>
+        <div class="google-badge">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          <span style="font-size:0.75rem;color:var(--grey)">Verified Google Review</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title">Come Train<br>With Us</h2>
+      <p class="section-intro" style="margin-bottom:2.5rem;">Got a question about membership? Want to arrange a visit? Drop us a message or reach out directly.</p>
+
+      <div class="contact-item">
+        <div class="contact-icon">&#128222;</div>
+        <div>
+          <div class="contact-item-label">Phone</div>
+          <a href="tel:+35020042508" class="contact-item-value">+350 200 42508</a>
+          <div class="contact-item-sub">Call or WhatsApp</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">&#128205;</div>
+        <div>
+          <div class="contact-item-label">Address</div>
+          <span class="contact-item-value">Unit 6 North Jumpers, 20 Rosia Road</span>
+          <div class="contact-item-sub">South District, GX11 1AA, Gibraltar</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">&#128336;</div>
+        <div>
+          <div class="contact-item-label">Reception Hours</div>
+          <span class="contact-item-value">Mon&ndash;Fri: 13:00 &ndash; 16:00</span>
+          <div class="contact-item-sub">Gym open 24/7, 365 days a year</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">&#9993;</div>
+        <div>
+          <div class="contact-item-label">Email</div>
+          <a href="mailto:info@musclemaniacs.gi" class="contact-item-value">info@musclemaniacs.gi</a>
+        </div>
+      </div>
+
+      <div class="social-links">
+        <a href="https://www.instagram.com/musclemaniacsgym/" target="_blank" rel="noopener" class="social-link" title="Instagram">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/musclemaniacsgib/" target="_blank" rel="noopener" class="social-link" title="Facebook">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://wa.me/35020042508" target="_blank" rel="noopener" class="social-link" title="WhatsApp">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div id="contactForm" class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" id="firstName" placeholder="John" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" id="lastName" placeholder="Smith" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="john@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="phone" placeholder="+350 ..." />
+        </div>
+        <div class="form-group">
+          <label>Interested In</label>
+          <select id="interest">
+            <option value="">Select a membership...</option>
+            <option value="standard">Standard Membership &ndash; &#163;50/month</option>
+            <option value="earlybird">Early Bird &ndash; &#163;30/month</option>
+            <option value="student">Student &ndash; &#163;125 / 3 months</option>
+            <option value="daypass">Day Pass &ndash; &#163;10</option>
+            <option value="other">General Enquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message (optional)</label>
+          <textarea id="message" placeholder="Any questions about the gym or membership?"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Send Enquiry &#8594;</button>
+        <div class="form-success" id="formSuccess">
+          &#10003; Thanks! We'll be in touch soon. You can also WhatsApp us on <strong>+350 200 42508</strong>.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<div id="map-section">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d501.3!2d-5.3531528!3d36.1308474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0c9e21b8f7c2d5%3A0x123456789!2sUnit%206%20North%20Jumpers%2C%2020%20Rosia%20Rd%2C%20GX11%201AA%2C%20Gibraltar!5e0!3m2!1sen!2sgi!4v1700000000000!5m2!1sen!2sgi"
+    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+    title="Muscle Maniacs location">
+  </iframe>
+  <div class="map-overlay">
+    <strong>&#128205; Muscle Maniacs</strong>
+    <span>Unit 6 North Jumpers, 20 Rosia Road, Gibraltar</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="#hero" class="footer-logo">MUSCLE<span>MANIACS</span></a>
+      <p class="footer-tagline">Gibraltar's premier 24-hour gym. State-of-the-art Rogue Fitness equipment. No excuses, just results.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/musclemaniacsgym/" target="_blank" rel="noopener" class="social-link" title="Instagram">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/musclemaniacsgib/" target="_blank" rel="noopener" class="social-link" title="Facebook">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#pricing">Memberships</a></li>
+        <li><a href="#review">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Memberships</h4>
+      <ul>
+        <li><a href="#pricing">Standard &ndash; &#163;50/mo</a></li>
+        <li><a href="#pricing">Early Bird &ndash; &#163;30/mo</a></li>
+        <li><a href="#pricing">Student &ndash; &#163;125/3mo</a></li>
+        <li><a href="#pricing">Day Pass &ndash; &#163;10</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Opening Hours</h4>
+      <div class="hours-item"><span class="hours-day">Gym Access</span><span class="hours-time always">24/7</span></div>
+      <div class="hours-item"><span class="hours-day">Reception</span><span class="hours-time">Mon&ndash;Fri</span></div>
+      <div class="hours-item"><span class="hours-day">Reception Times</span><span class="hours-time">13:00&ndash;16:00</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 Muscle Maniacs Gibraltar. All rights reserved.</span>
+    <span>Unit 6 North Jumpers, 20 Rosia Road, GX11 1AA &middot; <a href="tel:+35020042508" style="color:var(--grey);text-decoration:none;">+350 200 42508</a></span>
+  </div>
+</footer>
+
+<a href="#pricing" class="float-cta" id="floatCta">&#9889; Join Now</a>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+
+  function submitForm() {
+    const fn = document.getElementById('firstName').value.trim();
+    const em = document.getElementById('email').value.trim();
+    if (!fn || !em) { alert('Please fill in your name and email.'); return; }
+    const btn = document.querySelector('.form-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    setTimeout(() => {
+      document.querySelectorAll('#contactForm input, #contactForm select, #contactForm textarea').forEach(el => el.value = '');
+      document.getElementById('formSuccess').style.display = 'block';
+      btn.style.display = 'none';
+    }, 800);
+  }
+
+  // Scroll-in animations
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.pricing-card, .about-feature, .contact-item, .gallery-item').forEach(el => {
+    el.style.opacity='0'; el.style.transform='translateY(24px)'; el.style.transition='opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+
+  // Hide float CTA near pricing
+  const floatCta = document.getElementById('floatCta');
+  const pricingSec = document.getElementById('pricing');
+  window.addEventListener('scroll', () => {
+    const r = pricingSec.getBoundingClientRect();
+    const vis = r.top < window.innerHeight && r.bottom > 0;
+    floatCta.style.opacity = vis ? '0' : '1';
+    floatCta.style.pointerEvents = vis ? 'none' : 'auto';
+  });
+</script>
+</body>
+</html>
